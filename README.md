@@ -1,6 +1,6 @@
 # Obligatorisk oppgave 2 - Modul1
 
-## oppgavetext
+## [oppgave text](https://github.com/gigalomaniacx/ObligatoriskOppgave-2/blob/main/oppgavetext.md)
 
 ### Oppgave filene:
-###### [tmplink](dedLinkForNow)
+###### [index.html](https://github.com/gigalomaniacx/ObligatoriskOppgave-2/blob/main/index.html)
