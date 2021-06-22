@@ -10,6 +10,7 @@
             stroke-width: 1;
             stroke: black;
         }
+
     </style>
 </head>
 <body>
@@ -24,6 +25,8 @@
         let numbers = [7, 3, 1, 5, 8];
         let chosenBar = 'ingen'; // Variabel for hvilken stolpe som er valgt
         let inputValue; // Variabel for hva som er skrevet i input-feltet
+        let errMsg = '';
+        let buttonStatus = 'disabled';
         // view
         show();
         function show() {
@@ -40,8 +43,9 @@
                 Verdi:
                 <input id="inputNum" type="number" min="1" max="10" oninput="inputValue = this.value" />
                 <button onclick="addPole()">Legg til stolpe</button>
-                <button id="dCbtn" disabled>Endre valgt stolpe</button><br />
-                <button id="dRbtn" disabled>Fjerne valgt stolpe</button>
+                <button id="dCbtn" ${buttonStatus} onclick="changePole()">Endre valgt stolpe</button><br />
+                <button id="dRbtn" ${buttonStatus} onclick="removePole()">Fjerne valgt stolpe</button> <br />
+                ${errMsg}
                 `;
         }
     
@@ -52,8 +56,10 @@
             let height = number * 10;
             let y = 60 - height;
             let color = calcColor(1, 10, barNo);
+            let stroke = chosenBar == barNo ? 'stroke="black"' : "";
+            let buttonOn = chosenBar != 'ingen' ? buttonStatus = 'enabled' : buttonStatus = 'disabled';
             return `<rect id=${id} width="${width}" height="${height}"
-            x="${x}" y="${y}" fill="${color}" onclick="chooseBar(this.id)"></rect>`;
+            x="${x}" y="${y}" fill="${color}" ${stroke} onclick="chooseBar(${barNo})"></rect>`;
            
         }
     
@@ -70,39 +76,55 @@
         function addPole() {
             a = document.getElementById('inputNum');
             a.value != "" && a.value != 0 && a.value <= 10 ? numbers.push(parseInt(a.value)) :
-            '';
+            errMsg = 'Verdi må være mellom 1 og 10';
+            numbers.length > 8 ? removeOverflowPoles() : "";
             show();
         }
 
+        function removeOverflowPoles(){
+            let delnumber = numbers.length - 1;
+            numbers.splice(delnumber, 1);
+            errMsg = "Det ble for mange stolper, slett noen før du legger til nye";
+        }
+
+        // remove a pole 
         function removePole() {
-            numbers.splice(chosenBar, 1);
+            let rpole = (chosenBar - 1);
+            numbers.splice(rpole, 1);
+            show();
+        }
+
+        function changePole(){
+            a = document.getElementById('inputNum');
+            a.value > 0 ? numbers[chosenBar] = parseInt(a.value): errMsg = "Verdi må være mer enn 0";
+            chosenBar = 'ingen';
             show();
         }
 
         //selecting a pole
         function chooseBar(val) {
-            //let activateBtn
-            (chosenBar != val) ? borderifiy(val): chosenBar = 'ingen';
-            (chosenBar != 'ingen') ? enableButtons(): disableButtons();
+            chosenBar = chosenBar == val ? 'ingen' : val;
+            // (chosenBar != val) ? chosenBar = val;: removeBorder(val);
+            // (chosenBar != 'ingen') ? enableButtons(): disableButtons();
             show();
         }
 
-        function borderifiy(val) {
-            chosenBar = val;
-            document.getElementById(val).classList.add('border');
-            console.log(document.getElementById(val).classList);
-        }
-        function enableButtons(){
-            document.getElementById('dCbtn').disabled = false;
-            document.getElementById('dRbtn').disabled = false;
-            console.log('enableBtn');
-        }
+        // function removeBorder(val) {
+        //     chosenBar = 'ingen';
+        //     show();
+        //     // document.getElementById(val).classlist.remove[0];
+        // }
 
-        function disableButtons(){
-            document.getElementById('dCbtn').disabled = true;
-            document.getElementById('dRbtn').disabled = true;
-            console.log('disableBtn');
-        }
+        //enable & disable buttons
+        // function enableButtons(){
+        //     document.getElementById('dCbtn').disabled = false;
+        //     document.getElementById('dRbtn').disabled = false;
+        // }
+
+        // function disableButtons(){
+        //     document.getElementById('dCbtn').disabled = true;
+        //     document.getElementById('dRbtn').disabled = true;
+        // }
 
     </script>
 </body>
