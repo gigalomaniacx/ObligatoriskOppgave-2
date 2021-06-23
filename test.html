@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Test Suite</title>
+<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.16.0.css">
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="https://code.jquery.com/qunit/qunit-2.16.0.js"></script>
+  <script defer src="./js/controller.js"></script>
+  
+  
+  <script>
+      function show(){}
+      let numbers = [7, 3, 1, 5, 8];
+      let chosenBar = 1; // Variabel for hvilken stolpe som er valgt
+      let inputValue; // Variabel for hva som er skrevet i input-feltet
+      let errMsg = '';
+      let buttonStatus = 'disabled';
+      let barNo;
+      
+      
+      QUnit.module('Pick pole', function() {
+          QUnit.test('Pick a pole that\'s already picked', function(assert) {
+              barNo = 'ingen';
+              chosenBar = 3;
+              chooseBar(3);
+              chooseBar(barNo);
+              let actual = chosenBar;
+              expected = 'ingen';
+        assert.equal(actual,expected); 
+      });
+      QUnit.test('Pick a diferent pole', function(assert) {
+              barNo = 3;
+              chosenBar = 2;
+              chooseBar(barNo);
+              actual = chosenBar;
+              expected = 3; //since barNo is 3, 3 is expected 
+        assert.equal(actual,expected); 
+      });
+    });
+    QUnit.module('Remove', function() {
+        QUnit.test('Remove a pole', function(assert) {
+        numbers = [7, 3, 1, 5, 8];
+        chosenBar=2;
+        removePole();
+        expected = [7, 1,5,8];
+        actual = numbers;
+        assert.deepEqual(actual, expected);
+        
+        });
+      });
+      QUnit.module('Change', function() {
+        QUnit.test('change a pole', function(assert) {
+            chosenBar = 4;
+            inputValue = 4;
+            numbers = [7, 3, 1, 5, 8];
+            changePole();
+            expected = [7, 3, 1, 4, 8];
+            actual = numbers;
+            assert.deepEqual(actual, expected);
+        });
+      });
+      QUnit.module('Add a pole', function() {
+        QUnit.test('add a pole', function(assert) {
+            inputValue = 6;
+            numbers = [7, 3, 1, 5, 8];
+            addPole();
+            expected = [7, 3, 1, 5, 8, 6]
+            actual = numbers;
+
+            assert.deepEqual(actual, expected);
+
+        });
+      });
+  </script>
+</body>

@@ -1,10 +1,9 @@
 // adding a pole
 function addPole() {
-    // a = document.getElementById('inputNum');
-    console.log(val);
     inputValue != "" && inputValue != 0 && inputValue <= 10 ? numbers.push(inputValue) :
     errMsg = 'Verdi må være mellom 1 og 10';
     numbers.length > 8 ? removeOverflowPoles() : "";
+    inputValue = '';
     show();
 }
 
@@ -31,7 +30,5 @@ function changePole(){
 //selecting a pole
 function chooseBar(val) {
     chosenBar = chosenBar == val ? 'ingen' : val;
-    // (chosenBar != val) ? chosenBar = val;: removeBorder(val);
-    // (chosenBar != 'ingen') ? enableButtons(): disableButtons();
     show();
 }
