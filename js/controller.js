@@ -1,6 +1,6 @@
 // adding a pole
 function addPole() {
-    inputValue != "" && inputValue != 0 && inputValue <= 10 ? numbers.push(inputValue) :
+    inputValue != "" && inputValue > 0 && inputValue <= 10 ? numbers.push(inputValue) :
     errMsg = 'Verdi må være mellom 1 og 10';
     numbers.length > 8 ? removeOverflowPoles() : "";
     inputValue = '';
