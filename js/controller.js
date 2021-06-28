@@ -22,7 +22,7 @@ function removePole() {
 
 function changePole(){
     let rpole = (chosenBar - 1);
-    inputValue == '' && inputValue > 0 && inputValue <= 10 ? numbers[rpole] = parseInt(inputValue): errMsg = "Verdi må være mellom 1-10";
+    inputValue != '' && inputValue > 0 && inputValue <= 10 ? numbers[rpole] = parseInt(inputValue): errMsg = "Verdi må være mellom 1-10";
     chosenBar = 'ingen';
     show();
 }
